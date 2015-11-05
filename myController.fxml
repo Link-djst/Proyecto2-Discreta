@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="myJController">
+   <children>
+      <Label layoutX="368.0" layoutY="361.0" prefHeight="25.0" prefWidth="22.0" text="x:" />
+      <Button fx:id="btn_CreateGraph" layoutX="484.0" layoutY="361.0" mnemonicParsing="false" onAction="#onCreateGraph" text="Create Graph" />
+      <TextField fx:id="tf_x" layoutX="390.0" layoutY="361.0" prefHeight="25.0" prefWidth="22.0" />
+      <Label layoutX="423.0" layoutY="361.0" prefHeight="25.0" prefWidth="22.0" text="y:" />
+      <TextField fx:id="tf_y" layoutX="445.0" layoutY="361.0" prefHeight="25.0" prefWidth="22.0" />
+   </children>
+</Pane>
