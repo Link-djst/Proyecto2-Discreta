@@ -12,8 +12,8 @@ public class Edge {
 	
 	public void Add(Vertex v1, Vertex v2){
 		if(enabled == true){
-			v1.Add(v2);
-			v2.Add(v1);
+			/*v1.Add(v2);
+			v2.Add(v1);*/
 		}
 		enabled = false;
 	}

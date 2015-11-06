@@ -1,32 +1,41 @@
 import java.util.Scanner;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventTarget;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 public class myJController {
 
     @FXML
     private Button btn_CreateGraph;
-
+    
     @FXML
     private TextField tf_x;
 
     @FXML
     private TextField tf_y;
     
-    private Vertex v1 = new Vertex("v1");
-    private Vertex v2 = new Vertex("v2");
-	private Edge e;
+    @FXML
+    private Parent stack;
+    
+	private Graph g;
+	private Integer x,y;
 	
 
     @FXML
     void onCreateGraph(ActionEvent event) {
-    	
-    	e = new Edge();
     	if((!tf_x.getText().equals("")) && (!tf_y.getText().equals(""))){
-    		System.out.println("ok");
+    		g = new Graph(tf_x.getText(),tf_y.getText());
+    		for(Vertex element : g.getSetVertex()){
+    			stack = btn_CreateGraph.getParent();
+    		}
     	}
     }
 }
