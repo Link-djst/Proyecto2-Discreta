@@ -1,5 +1,3 @@
-import java.util.List;
-import java.util.Vector;
 
 public class Graph {
 	private  Vertex[] setVertex;
@@ -53,14 +51,10 @@ public class Graph {
 			for(j=0;j<size;j++){
 				current = this.setVertex[i].getNumber();
 				try{
-					if((current%this.x)!=this.x-1){
-						this.adyacencyMatrix[current][current+1] = 1;
-					}
+					this.adyacencyMatrix[current][current+1] = 1;
 				}catch(Exception e){
 				}try{
-					if((current%this.x)!=0){
-						this.adyacencyMatrix[current][current-1] = 1;
-					}
+					this.adyacencyMatrix[current][current-1] = 1;
 				}catch(Exception e){
 				} try{
 					this.adyacencyMatrix[current][current+this.x] = 1;
@@ -77,20 +71,8 @@ public class Graph {
 	public Vertex[] getSetVertex(){
 		return setVertex;
 	}
-	public Integer[] getAdyacencyList(int vertex){
-			String index ="";
-			Integer[] dummy = adyacencyMatrix[vertex];
-			Vector dummy2 = new Vector();
-			for(int i = 0; i< size; i++){
-				if(dummy[i]==1){
-					dummy2.add(i);
-					index = index +" "+ i;
-    		}
-    	}
-    	System.out.println(vertex+" adyacent to "+index);
-    	Integer[] adyacencyList = new Integer[dummy2.size()];
-    	dummy2.toArray(adyacencyList);
-		return adyacencyList;
+	public Integer[] getAdyacency(int vertex){
+		return adyacencyMatrix[vertex];
 	}
 	
 }
