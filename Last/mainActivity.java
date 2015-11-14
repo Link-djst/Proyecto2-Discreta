@@ -1,3 +1,6 @@
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Vector;
@@ -92,6 +95,7 @@ public class mainActivity extends Application {
 		Integer First = firstAndLast.poll();
 		Integer Last = firstAndLast.poll();
 		frontier.add(First);
+		came_from.add(First);
 		
 		while (!frontier.isEmpty()){
 			position = frontier.poll();
@@ -102,13 +106,31 @@ public class mainActivity extends Application {
 			for(Integer next : G.getAdyacencyList(position)){
 				if(!came_from.contains(next)){
 					//System.out.println(next);
-					G.setDisabled(next);
 					frontier.add(next);
 					came_from.add(next);
 					System.out.println("Visitados actualmente "+came_from.toString());
 				}
 			}
 		}
+		/*Revisar esta parte del código*/
+		/*La lista de adyacencia tiene cierto orden, entonces cuando encuentra el primero que contiene*/
+		/*Toma esa ruta. Entonces toma cualquiera de los Neighbour, y eso esta bien pero no agarra el optimo*/
+		position = Last;
+		Collections.reverse(came_from);
+		Integer k=0;
+		G.setDisabled(position);
+		path.add(position);
+		while (position!=First){
+			k++;
+			Integer dummy = came_from.get(k);
+			if(Arrays.asList(G.getAdyacencyList(position)).contains(dummy)){
+				G.setDisabled(dummy);
+				path.add(dummy);
+				position = dummy;
+			}
+		}
+		System.out.println("El camino "+path);
+		
 	}
 	
 	public static void main(String[] args){
