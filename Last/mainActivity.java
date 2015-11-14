@@ -1,5 +1,6 @@
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Vector;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -21,9 +22,9 @@ public class mainActivity extends Application {
 	private TextField y;
 	private StackPane frame;
 	private Queue<Integer> frontier;
-	private Queue<Integer> search;
-	private Boolean[] visited;
+	private Queue<Integer> firstAndLast;
 	private Graph G;
+	private Vector<Integer> visited;
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
@@ -50,8 +51,9 @@ public class mainActivity extends Application {
 	}
 	
 	private void initGraph(){
-		search = new LinkedList<Integer>();
+		firstAndLast = new LinkedList<Integer>();
 		frontier = new LinkedList<Integer>();
+		visited = new Vector<Integer>();
 		FlowPane fp = new FlowPane();
 		this.G = new Graph(x.getText(), y.getText());
 		this.setVertex = G.getSetVertex();
@@ -62,7 +64,7 @@ public class mainActivity extends Application {
 			    	int current = ((Vertex) e.getSource()).getNumber();
 			    	adyacencyVertex = G.getAdyacencyList(current);
 			    	path(current);
-			    	System.out.println(search.toString());
+			    	System.out.println(firstAndLast.toString());
 			    }
 			});
 			fp.getChildren().add(setVertex[i]);
@@ -71,21 +73,29 @@ public class mainActivity extends Application {
 	}
 	
 	private void path(Integer current){
-		if(search.size()<2){
-    		search.add(current);    		
+		if(firstAndLast.size()<2){
+    		firstAndLast.add(current);   
+    		if(firstAndLast.size()==2){
+    			createPath(firstAndLast);
+    		}
     	} else {
-    		search.poll();
-    		search.add(current);
-    		createPath(search);
+    		firstAndLast.poll();
+    		firstAndLast.add(current);
+    		createPath(firstAndLast);
     	}
 	}
 	
-	private void createPath(Queue<Integer> search){
-		frontier.add(search.peek());
+	private void createPath(Queue<Integer> firstAndLast){
+		frontier.add(firstAndLast.peek());
 		while (!frontier.isEmpty()){
 			position = frontier.poll();
 			for(Integer next : G.getAdyacencyList(position)){
-				System.out.println(next);
+				if(!visited.contains(next)){
+					//System.out.println(next);
+					frontier.add(next);
+					visited.add(next);
+					System.out.println("Visitados actualmente "+visited.toString());
+				}
 			}
 		}
 	}
