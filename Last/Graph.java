@@ -41,57 +41,29 @@ public class Graph {
 				line+=" "+this.adyacencyMatrix[i][j];
 			}
 			line+=" ]";
-			/*System.out.println(line);*/
+			System.out.println(line);
 		}
 	}
 	
 	public void AdyacencyMatrix(){
-		k=0;
 		initAdyacencyMatrix();
 		for(i=0;i<size;i++){
 			for(j=0;j<size;j++){
-				current = this.setVertex[k].getNumber();
-				/*Caso banda superior*/
-				if(current<this.x){
-					/*Caso común*/
-					if((current != this.x-1) && (current != 0)){
-						this.adyacencyMatrix[i][current-1] = 1;
-						this.adyacencyMatrix[i][current+1] = 1;
-						this.adyacencyMatrix[i][current+this.x] = 1;
-					}
-					/*Caso de x*/
-					else if(current == this.x-1){
-						this.adyacencyMatrix[i][current-1] = 1;
-						this.adyacencyMatrix[i][current+this.x] = 1;
-					}
-					/*Caso de cero*/
-					else if(current == 0){
-						this.adyacencyMatrix[i][current+1] = 1;
-						this.adyacencyMatrix[i][current+this.x] = 1;
-					} 
+				current = this.setVertex[i].getNumber();
+				try{
+					this.adyacencyMatrix[current][current+1] = 1;
+				}catch(Exception e){
+				}try{
+					this.adyacencyMatrix[current][current-1] = 1;
+				}catch(Exception e){
+				} try{
+					this.adyacencyMatrix[current][current+this.x] = 1;
+				}catch(Exception e){
+				} try{
+					this.adyacencyMatrix[current][current-this.x] = 1;
+				} catch(Exception e){
 				}
 			}
-			
-			/*Caso banda inferior*/
-			if((current<size)&&(current>size-this.x)){
-				/*Caso común*/
-				if((current != size-1) && (current != size-this.x-1)){
-					this.adyacencyMatrix[i][current-1] = 1;
-					this.adyacencyMatrix[i][current+1] = 1;
-					this.adyacencyMatrix[i][current-this.x] = 1;
-				}
-				/*Caso de x*/
-				else if(current == size-this.x-1){
-					this.adyacencyMatrix[i][current+1] = 1;
-					this.adyacencyMatrix[i][current-this.x] = 1;
-				}
-				/*Caso de cero*/
-				else if(current == size-1){
-					this.adyacencyMatrix[i][current-1] = 1;
-					this.adyacencyMatrix[i][current-this.x] = 1;
-				} 
-			}
-			k++;
 		}
 			showAdyacencyMatrix();
 	}
