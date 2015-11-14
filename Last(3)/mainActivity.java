@@ -1,9 +1,9 @@
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.Arrays;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -19,9 +19,6 @@ public class mainActivity extends Application {
 	private TextField x;
 	private TextField y;
 	private StackPane frame;
-	private Queue<Vertex> frontier;
-	private Queue<Integer> search;
-	private Boolean[] visited;
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
@@ -48,7 +45,6 @@ public class mainActivity extends Application {
 	}
 	
 	private void initGraph(){
-		search = new LinkedList<Integer>();
 		FlowPane fp = new FlowPane();
 		Graph G = new Graph(x.getText(), y.getText());
 		this.setVertex = G.getSetVertex();
@@ -56,26 +52,22 @@ public class mainActivity extends Application {
 			setVertex[i].setOnAction(new EventHandler<ActionEvent>() {
 			    @Override 
 			    public void handle(ActionEvent e) {
+			    	String index ="";
 			    	int current = ((Vertex) e.getSource()).getNumber();
-			    	adyacencyVertex = G.getAdyacencyList(current);
-			    	path(current);
+			    	adyacencyVertex = new Integer[G.getAdyacency(current).length];
+			    	adyacencyVertex = G.getAdyacency(current);
+			    	for(int i = 0; i< adyacencyVertex.length; i++){
+			    		if(adyacencyVertex[i]==1){
+			    			index = index +" "+i;
+			    		}
+			    	}
+			    	System.out.println(current+" adyacent to "+index);
 			    }
 			});
 			fp.getChildren().add(setVertex[i]);
 		}
 		frame.getChildren().add(fp);
 		
-	}
-	
-	private void path(Integer current){
-		if(search.size()<2){
-    		search.add(current);    		
-    		System.out.println(search.toString());
-    	} else {
-    		search.poll();
-    		search.add(current);
-    		System.out.println(search.toString());
-    	}
 	}
 	
 	public static void main(String[] args){

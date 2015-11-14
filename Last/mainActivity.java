@@ -13,15 +13,17 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class mainActivity extends Application {
+	private Integer position;
 	private Button cBtn;
 	private Integer[] adyacencyVertex;
 	private Vertex[] setVertex;
 	private TextField x;
 	private TextField y;
 	private StackPane frame;
-	private Queue<Vertex> frontier;
+	private Queue<Integer> frontier;
 	private Queue<Integer> search;
 	private Boolean[] visited;
+	private Graph G;
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
@@ -49,8 +51,9 @@ public class mainActivity extends Application {
 	
 	private void initGraph(){
 		search = new LinkedList<Integer>();
+		frontier = new LinkedList<Integer>();
 		FlowPane fp = new FlowPane();
-		Graph G = new Graph(x.getText(), y.getText());
+		this.G = new Graph(x.getText(), y.getText());
 		this.setVertex = G.getSetVertex();
 		for(int i = 0;i < setVertex.length;i++){
 			setVertex[i].setOnAction(new EventHandler<ActionEvent>() {
@@ -59,23 +62,32 @@ public class mainActivity extends Application {
 			    	int current = ((Vertex) e.getSource()).getNumber();
 			    	adyacencyVertex = G.getAdyacencyList(current);
 			    	path(current);
+			    	System.out.println(search.toString());
 			    }
 			});
 			fp.getChildren().add(setVertex[i]);
 		}
 		frame.getChildren().add(fp);
-		
 	}
 	
 	private void path(Integer current){
 		if(search.size()<2){
     		search.add(current);    		
-    		System.out.println(search.toString());
     	} else {
     		search.poll();
     		search.add(current);
-    		System.out.println(search.toString());
+    		createPath(search);
     	}
+	}
+	
+	private void createPath(Queue<Integer> search){
+		frontier.add(search.peek());
+		while (!frontier.isEmpty()){
+			position = frontier.poll();
+			for(Integer next : G.getAdyacencyList(position)){
+				System.out.println(next);
+			}
+		}
 	}
 	
 	public static void main(String[] args){
