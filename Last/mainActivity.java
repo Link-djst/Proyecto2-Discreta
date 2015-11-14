@@ -24,7 +24,8 @@ public class mainActivity extends Application {
 	private Queue<Integer> frontier;
 	private Queue<Integer> firstAndLast;
 	private Graph G;
-	private Vector<Integer> visited;
+	private Vector<Integer> came_from;
+	private Vector<Integer> path;
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
@@ -52,8 +53,6 @@ public class mainActivity extends Application {
 	
 	private void initGraph(){
 		firstAndLast = new LinkedList<Integer>();
-		frontier = new LinkedList<Integer>();
-		visited = new Vector<Integer>();
 		FlowPane fp = new FlowPane();
 		this.G = new Graph(x.getText(), y.getText());
 		this.setVertex = G.getSetVertex();
@@ -86,15 +85,27 @@ public class mainActivity extends Application {
 	}
 	
 	private void createPath(Queue<Integer> firstAndLast){
-		frontier.add(firstAndLast.peek());
+		frontier = new LinkedList<Integer>();
+		came_from = new Vector<Integer>();
+		path = new Vector<Integer>();
+		
+		Integer First = firstAndLast.poll();
+		Integer Last = firstAndLast.poll();
+		frontier.add(First);
+		
 		while (!frontier.isEmpty()){
 			position = frontier.poll();
+			
+			if (position == Last){
+				break;
+			}
 			for(Integer next : G.getAdyacencyList(position)){
-				if(!visited.contains(next)){
+				if(!came_from.contains(next)){
 					//System.out.println(next);
+					G.setDisabled(next);
 					frontier.add(next);
-					visited.add(next);
-					System.out.println("Visitados actualmente "+visited.toString());
+					came_from.add(next);
+					System.out.println("Visitados actualmente "+came_from.toString());
 				}
 			}
 		}

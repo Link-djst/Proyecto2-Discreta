@@ -92,4 +92,8 @@ public class Graph {
 		return adyacencyList;
 	}
 	
+	public void setDisabled(Integer position){
+		setVertex[position].setText("..");
+	}
+	
 }
