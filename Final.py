@@ -124,11 +124,20 @@ v = tuple((m-1,m-1))
 tic=timeit.default_timer()
 path1 = nx.dijkstra_path(G,u,v)
 toc=timeit.default_timer()
-print toc-tic
+print "Tiempo path 1 "+toc-tic
+t1=timeit.default_timer()
 path2 = nx.astar_path(G,u,v,dist)
+t2=timeit.default_timer()
+print "Tiempo path 2 "+t2-t1
 #Laberinto
+l1=timeit.default_timer()
 path3 = nx.dijkstra_path(laberinth,u,v)
+l2=timeit.default_timer()
+print "Tiempo path 3 "+l2-l1
+la1=timeit.default_timer()
 path4 = nx.astar_path(laberinth,u,v,dist)
+la2=timeit.default_timer()
+print "Tiempo path 4 "+la2-la1
 
 print 'A*'
 getWeight(path1)
