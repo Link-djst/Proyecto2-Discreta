@@ -51,16 +51,16 @@ def dist(a, b):
     return  ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5
 #Agregar arista segun probabilidad 
 def addProbEdge(listNodes):
-    for i in range(14):
-        for j in range(14,0,-1):
+    for i in range(m-1):
+        for j in range(m-1,0,-1):
             p = r.randint(0,1)
             if(p==0):     
-                if(i<14) and (j>0):
+                if(i<m-1) and (j>0):
                     u = (i, j)
                     v = (i+1,j-1)
                     G.add_edge(u,v,weight = 1.42)
             else:
-                if(i<14) and (j>0):
+                if(i<m-1) and (j>0):
                     u = (i+1, j)
                     v = (i,j-1)
                     G.add_edge(u,v,weight = 1.42)
@@ -102,15 +102,15 @@ def addRandomEdge(listEdges):
 #1    
 #addEdge(listEdges)
 #2
-#addEdge(listEdges)
-#addProbEdge(listNodes)
+addEdge(listEdges)
+addProbEdge(listNodes)
 #3
 #addPerPosEdge(listEdges)
 #4
 #addEdge(listEdges)
 #addObstacle(listEdges)
 #5
-addRandomEdge(listEdges)
+#addRandomEdge(listEdges)
 
 laberinth = nx.minimum_spanning_tree(G)
 laberinthListEdges = laberinth.edges()
@@ -118,7 +118,7 @@ laberinthListEdges = laberinth.edges()
 #nodo inicial
 u = tuple((0,0))
 #nodo final
-v = tuple((14,14))
+v = tuple((m-1,m-1))
 
 #
 tic=timeit.default_timer()
@@ -141,17 +141,17 @@ getWeight(path4)
 
 #Opciones
 #1,2,3
-#nx.draw_networkx(G,pos=pos,nodelist=path1,alpha=1,edge_color='g',node_color='g',with_labels=False,node_size=75)
-#nx.draw_networkx(G,pos=pos,nodelist=path2,alpha=1,edge_color='y',node_color='y',with_labels=False,node_size=75)
-#nx.draw_networkx(G,pos=pos,nodelist=listNodes,alpha=0.5,edge_color='r',node_color='r',with_labels=False,node_size=30)
+nx.draw_networkx(G,pos=pos,nodelist=path1,alpha=1,edge_color='g',node_color='g',with_labels=False,node_size=75)
+nx.draw_networkx(G,pos=pos,nodelist=path2,alpha=1,edge_color='y',node_color='y',with_labels=False,node_size=75)
+nx.draw_networkx(G,pos=pos,nodelist=listNodes,alpha=0.5,edge_color='r',node_color='r',with_labels=False,node_size=30)
 #4
 #nx.draw_networkx(G,pos=pos,nodelist=obstacleNode,alpha=1,edge_color='black',node_color='black',with_labels=False,node_size=75)
 
 #5
-nx.draw_networkx(laberinth,pos=pos,node_size=30,with_labels=False)
-nx.draw_networkx(G,pos=pos,nodelist=path3,alpha=1,node_color='b',edge_color='white',with_labels=False,node_size=75)
-nx.draw_networkx(G,pos=pos,nodelist=path4,alpha=1,node_color='y',edge_color='white',with_labels=False,node_size=75)
-nx.draw_networkx(G,pos=pos,edgelist=laberinthListEdges,alpa=0,node_size=0,with_labels=False)
+#nx.draw_networkx(laberinth,pos=pos,node_size=30,with_labels=False)
+#nx.draw_networkx(G,pos=pos,nodelist=path3,alpha=1,node_color='b',edge_color='white',with_labels=False,node_size=75)
+#nx.draw_networkx(G,pos=pos,nodelist=path4,alpha=1,node_color='y',edge_color='white',with_labels=False,node_size=75)
+#nx.draw_networkx(G,pos=pos,edgelist=laberinthListEdges,alpa=0,node_size=0,with_labels=False)
 
 
 
